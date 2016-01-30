@@ -52,12 +52,13 @@ namespace Orbs
         private static void InitializeWindow()
         {
             //define the window
-            window = new RenderWindow(new VideoMode(1440, 900), "Orbs", Styles.Default);
+            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Default);
             window.SetVisible(true);
 
             //setup eventhandlers
             window.Closed += (sender, i) => window?.Close();
-            window.KeyPressed += (sender, i) => stateManager?.CurrentState?.HandleKeyPressed(i);
+            window.KeyReleased += (sender, i) => stateManager?.CurrentState?.HandleKeyReleased(i);
+            window.MouseButtonReleased += (sender, i) => stateManager?.CurrentState?.HandleMouseReleased(i);
         }
 
         private static void GameLoop()
