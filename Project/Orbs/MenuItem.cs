@@ -19,11 +19,6 @@ namespace Orbs
 
         public bool Selected
         {
-            get
-            {
-                return selected;
-            }
-
             set
             {
                 selected = value;
@@ -43,10 +38,6 @@ namespace Orbs
 
         public void Draw()
         {
-            if (selected)
-            {
-
-            }
             Label.Draw(Program.Window, RenderStates.Default);
         }
     }

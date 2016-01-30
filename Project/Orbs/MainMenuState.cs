@@ -53,6 +53,7 @@ namespace Orbs
                 case (Keyboard.Key.Down):
                     menu?.MoveDown();
                     break;
+                case (Keyboard.Key.Space):
                 case (Keyboard.Key.Return):
                     menu?.SelectItem();
                     break;

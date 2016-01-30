@@ -52,8 +52,9 @@ namespace Orbs
         private static void InitializeWindow()
         {
             //define the window
-            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Default);
+            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Fullscreen);
             window.SetVisible(true);
+            window.SetMouseCursorVisible(false);
 
             //setup eventhandlers
             window.Closed += (sender, i) => window?.Close();

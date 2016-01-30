@@ -112,6 +112,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Textures\arrowRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\container.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

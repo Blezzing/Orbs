@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using SFML.Graphics;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace Orbs
 {
     public class Menu
     {
-        List<MenuItem> menuItems;
-        int selectedItem = 0;
+        private List<MenuItem> menuItems;
+        private int selectedItem = 0;
+        private Sprite selectionPointer;
 
         public Menu(List<MenuItem> items,Vector2f topLeft, float height)
         {
@@ -23,7 +25,15 @@ namespace Orbs
                 menuItems[i].Label.Position = new Vector2f(topLeft.X, topLeft.Y + (height / menuItems.Count) * i);
             }
 
+            //prepare pointer
+            uint pointerSize = menuItems[selectedItem].Label.CharacterSize;
+            selectionPointer = new Sprite(new Texture("Assets/Textures/arrowRight.png") { Smooth=true });
+            selectionPointer.Scale = new Vector2f(0.04f*pointerSize, 0.04f*pointerSize);
+            selectionPointer.Color = Color.Red;
+
+            //preset first selection
             menuItems[selectedItem].Selected = true;
+            UpdatePointerPosition();
         }
 
         public void MoveUp()
@@ -32,6 +42,7 @@ namespace Orbs
             {
                 menuItems[selectedItem--].Selected = false;
                 menuItems[selectedItem].Selected = true;
+                UpdatePointerPosition();
             }
         }
 
@@ -41,6 +52,7 @@ namespace Orbs
             {
                 menuItems[selectedItem++].Selected = false;
                 menuItems[selectedItem].Selected = true;
+                UpdatePointerPosition();
             }
         }
 
@@ -55,6 +67,12 @@ namespace Orbs
             {
                 item.Draw();
             }
+            selectionPointer.Draw(Program.Window, RenderStates.Default);
+        }
+
+        private void UpdatePointerPosition()
+        {
+            selectionPointer.Position = menuItems[selectedItem].Label.Position - new Vector2f(20+menuItems[selectedItem].Label.CharacterSize, -menuItems[selectedItem].Label.CharacterSize/6);
         }
     }
 }
