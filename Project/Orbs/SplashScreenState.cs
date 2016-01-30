@@ -43,7 +43,7 @@ namespace Orbs
             titleText.Draw(Program.Window, RenderStates.Default);
         }
 
-        public void HandleKeyReleased(KeyEventArgs i)
+        public void HandleKeyPressed(KeyEventArgs i)
         {
             EnterMainMenu();
         }

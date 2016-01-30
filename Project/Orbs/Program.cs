@@ -58,7 +58,7 @@ namespace Orbs
 
             //setup eventhandlers
             window.Closed += (sender, i) => window?.Close();
-            window.KeyReleased += (sender, i) => stateManager?.CurrentState?.HandleKeyReleased(i);
+            window.KeyPressed += (sender, i) => stateManager?.CurrentState?.HandleKeyPressed(i);
             window.MouseButtonReleased += (sender, i) => stateManager?.CurrentState?.HandleMouseReleased(i);
         }
 

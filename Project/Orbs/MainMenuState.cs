@@ -43,7 +43,7 @@ namespace Orbs
             menu.Draw();
         }
         
-        public void HandleKeyReleased(KeyEventArgs i)
+        public void HandleKeyPressed(KeyEventArgs i)
         {
             switch(i.Code)
             {
