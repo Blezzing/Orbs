@@ -38,9 +38,8 @@ namespace Orbs
 
         public void Render()
         {
-            Program.Window.Clear(Color.Black);
-            title.Draw(Program.Window, RenderStates.Default);
-            menu.Draw();
+            Program.Window.Draw(title);
+            Program.Window.Draw(menu);
         }
         
         public void HandleKeyPressed(KeyEventArgs i)
@@ -58,10 +57,6 @@ namespace Orbs
                     menu?.SelectItem();
                     break;
             }
-        }
-
-        public void HandleMouseReleased(MouseButtonEventArgs i)
-        {
         }
     }
 }

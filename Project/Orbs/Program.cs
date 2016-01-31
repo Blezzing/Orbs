@@ -11,19 +11,13 @@ namespace Orbs
     public static class Program
     {
         #region Fields
-        private static StateManager stateManager;
         private static RenderWindow window;
-        private static Color clearColor = new Color(100, 150, 240);
+        private static AssetManager assetManager;
+        private static StateManager stateManager;
+        private static Color clearColor = Color.Black;
         #endregion
 
         #region Properties
-        public static StateManager StateManager
-        {
-            get
-            {
-                return stateManager;
-            }
-        }
         public static RenderWindow Window
         {
             get
@@ -31,44 +25,81 @@ namespace Orbs
                 return window;
             }
         }
+        public static AssetManager AssetManager
+        {
+            get
+            {
+                return assetManager;
+            }
+        }
+        public static StateManager StateManager
+        {
+            get
+            {
+                return stateManager;
+            }
+        }
         #endregion
 
         private static void Main(string[] args)
         {
             InitializeWindow();
+            InitializeAssetManager();
             InitializeStateManager();
             GameLoop();
         }
-
+        
         #region Private methods
+        private static void InitializeAssetManager()
+        {
+            //Construct
+            assetManager = new AssetManager();
+        }
+
         private static void InitializeStateManager()
         {
+            //Construct
             stateManager = new StateManager();
-            stateManager.EnterState(new SplashScreenState());
 
-            stateManager.Empty += (sender, i) => window?.Close();
+            //Bind events
+            stateManager.OutOfStates += (sender, i) => window?.Close();
+
+            //Define starting state
+            stateManager.EnterState(new SplashScreenState());
         }
 
         private static void InitializeWindow()
         {
-            //define the window
+            //Construct
             window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Fullscreen);
+
+            //Set parameters
             window.SetVisible(true);
             window.SetMouseCursorVisible(false);
 
-            //setup eventhandlers
+            //Bind events
             window.Closed += (sender, i) => window?.Close();
             window.KeyPressed += (sender, i) => stateManager?.CurrentState?.HandleKeyPressed(i);
-            window.MouseButtonReleased += (sender, i) => stateManager?.CurrentState?.HandleMouseReleased(i);
         }
 
         private static void GameLoop()
         {
+            //Terminate when window gets closed
             while (window.IsOpen)
             {
+                //Walks through delegates for event handling
                 window.DispatchEvents();
+
+                //Perform logic
                 stateManager.CurrentState?.Update();
+
+                //Prepare frame
+                window.Clear(clearColor);
+
+                //Draw frame
                 stateManager.CurrentState?.Render();
+
+                //Swap frame   
                 window.Display();
             }
         }

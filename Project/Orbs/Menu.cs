@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Orbs
 {
-    public class Menu
+    public class Menu : Drawable
     {
         private List<MenuItem> menuItems;
         private int selectedItem = 0;
@@ -61,18 +61,19 @@ namespace Orbs
             menuItems[selectedItem].Pick();
         }
 
-        public void Draw()
-        {
-            foreach (MenuItem item in menuItems)
-            {
-                item.Draw();
-            }
-            selectionPointer.Draw(Program.Window, RenderStates.Default);
-        }
-
         private void UpdatePointerPosition()
         {
             selectionPointer.Position = menuItems[selectedItem].Label.Position - new Vector2f(20+menuItems[selectedItem].Label.CharacterSize, -menuItems[selectedItem].Label.CharacterSize/6);
+        }
+
+        public void Draw(RenderTarget target, RenderStates states)
+        {
+            foreach (MenuItem item in menuItems)
+            {
+                target.Draw(item);
+            }
+
+            target.Draw(selectionPointer);
         }
     }
 }

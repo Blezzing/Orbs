@@ -8,20 +8,19 @@ namespace Orbs
 {
     public class StateManager
     {
-        private Stack<IState> states;
+        private Stack<IState> states = new Stack<IState>();
 
-        public event EventHandler Empty;
-        public event EventHandler CurrentStateChanged;
+        public event EventHandler OutOfStates;
 
         public IState CurrentState
         {
             get
             {
-                try
-                {
-                    return states?.Peek();
+                if (states.Count > 0)
+                { 
+                    return states.Peek();
                 }
-                catch (InvalidOperationException)
+                else
                 {
                     return null;
                 }
@@ -30,50 +29,35 @@ namespace Orbs
 
         public StateManager()
         {
-            states = new Stack<IState>(); 
+            //Nothing special happends.
         }
 
         public void LeaveCurrentState()
         {
-            if (states?.Count > 0)
+            if (states.Count > 0)
             {
                 states.Pop();
 
-                if (CurrentStateChanged != null)
+                if (states.Count <= 0 && OutOfStates != null)
                 {
-                    CurrentStateChanged(this, new EventArgs());
+                    OutOfStates(this, new EventArgs());
                 }
-            }
-
-            if (states?.Count <= 0 && Empty != null)
-            {
-                Empty(this, new EventArgs());
             }
         }
 
         public void ReplaceState(IState newState)
         {
-            if (states?.Count > 0)
+            if (states.Count > 0)
             {
-                states?.Pop();
+                states.Pop();
             }
 
-            states?.Push(newState);
-
-            if (CurrentStateChanged != null)
-            {
-                CurrentStateChanged(this, new EventArgs());
-            }
+            states.Push(newState);
         }
 
         public void EnterState(IState newState)
         {
-            states?.Push(newState);
-
-            if (CurrentStateChanged != null)
-            {
-                CurrentStateChanged(this, new EventArgs());
-            }
+            states.Push(newState);
         }
     }
 }

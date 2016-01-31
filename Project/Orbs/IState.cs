@@ -12,6 +12,5 @@ namespace Orbs
         void Update();
         void Render();
         void HandleKeyPressed(KeyEventArgs i);
-        void HandleMouseReleased(MouseButtonEventArgs i);
     }
 }

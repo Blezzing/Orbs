@@ -8,37 +8,39 @@ using System.Threading.Tasks;
 
 namespace Orbs
 {
-    public class MenuItem
+    public class MenuItem : Drawable
     {
         public Text Label;
-        private bool selected;
         public Action Pick;
-        
-        private static Color idleColor = Color.White;
-        private static Color activeColor = Color.Red;
+
+        private static Color selectedColor = Color.Red;
+        private static Color notSelectedColor = Color.White;
 
         public bool Selected
         {
             set
             {
-                selected = value;
                 if (value)
-                    Label.Color = activeColor;
+                {
+                    Label.Color = selectedColor;
+                }
                 else
-                    Label.Color = idleColor;
+                {
+                    Label.Color = notSelectedColor;
+                }
             }
         }
 
         public MenuItem(Text label, Action pickAction)
         {
             Label = label;
+            Label.Color = notSelectedColor;
             Pick = pickAction;
-            Selected = false;
         }
 
-        public void Draw()
+        public void Draw(RenderTarget target, RenderStates states)
         {
-            Label.Draw(Program.Window, RenderStates.Default);
+            target.Draw(Label);
         }
     }
 }

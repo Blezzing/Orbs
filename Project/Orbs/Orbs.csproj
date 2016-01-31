@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetManager.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="LibraryExtensions.cs" />
     <Compile Include="Menu.cs" />
