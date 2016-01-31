@@ -22,14 +22,14 @@ namespace Orbs
             title.Color = new Color(200, 200, 255);
             title.Position = new SFML.System.Vector2f(Program.Window.Size.X / 2 - title.GetLocalBounds().Width / 2, 100);
 
-            List<MenuItem> items = new List<MenuItem>();
-            items.Add(new MenuItem(new Text("Play", menuFont, 60), () => { }));
-            items.Add(new MenuItem(new Text("Options", menuFont, 60), () => { }));
-            items.Add(new MenuItem(new Text("Help", menuFont, 60), () => { }));
-            items.Add(new MenuItem(new Text("Credits", menuFont, 60), () => { Program.StateManager.LeaveCurrentState(); }));
-            items.Add(new MenuItem(new Text("Exit", menuFont, 60), () => { Program.Window.Close(); }));
+            List<Tuple<String,Action>> items = new List<Tuple<String, Action>>();
+            items.Add(new Tuple<string, Action>("Play",     () => { }                                           ));
+            items.Add(new Tuple<string, Action>("Options",  () => { }                                           ));
+            items.Add(new Tuple<string, Action>("Help",     () => { }                                           ));
+            items.Add(new Tuple<string, Action>("Credits",  () => { Program.StateManager.LeaveCurrentState(); } ));
+            items.Add(new Tuple<string, Action>("Exit",     () => { Program.Window.Close(); }                   ));
 
-            menu = new Menu(items, new Vector2f(Program.Window.Size.X / 2, 350),700);
+            menu = new Menu(items, menuFont, 60, new Vector2f(Program.Window.Size.X / 2, 350),700);
         }
 
         public void Update()

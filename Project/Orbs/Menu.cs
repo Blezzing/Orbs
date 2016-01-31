@@ -10,14 +10,17 @@ namespace Orbs
 {
     public class Menu : Drawable
     {
-        private List<MenuItem> menuItems;
+        private List<MenuItem> menuItems = new List<MenuItem>();
         private int selectedItem = 0;
         private Sprite selectionPointer;
 
-        public Menu(List<MenuItem> items,Vector2f topLeft, float height)
+        public Menu(List<Tuple<String,Action>> items, Font font, uint characterSize ,Vector2f topLeft, float height)
         {
             //get items
-            menuItems = items;
+            foreach (Tuple<String, Action> tuple in items)
+            {
+                menuItems.Add(new MenuItem(new Text(tuple.Item1, font, characterSize), tuple.Item2));
+            }
 
             //define positions
             for (int i = 0; i<menuItems.Count;i++)
