@@ -43,10 +43,10 @@ namespace Orbs
 
         private static void Main(string[] args)
         {
-            InitializeWindow();
-            InitializeAssetManager();
-            InitializeStateManager();
-            GameLoop();
+            InitializeWindow();         //Requires nothing
+            InitializeAssetManager();   //Requires nothing
+            InitializeStateManager();   //Requires window to exist, and assets to be loaded
+            GameLoop();                 //Requires everything to be ready
         }
         
         #region Private methods
@@ -78,8 +78,8 @@ namespace Orbs
             window.SetMouseCursorVisible(false);
 
             //Bind events
-            window.Closed += (sender, i) => window?.Close();
-            window.KeyPressed += (sender, i) => stateManager?.CurrentState?.HandleKeyPressed(i);
+            window.Closed += (sender, i) => window.Close();
+            window.KeyPressed += (sender, i) => stateManager.CurrentState?.HandleKeyPressed(i);
         }
 
         private static void GameLoop()

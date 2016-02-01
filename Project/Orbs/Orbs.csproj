@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetManager.cs" />
+    <Compile Include="ExploringState.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="LibraryExtensions.cs" />
     <Compile Include="Menu.cs" />
@@ -105,10 +106,14 @@
     <Compile Include="MainMenuState.cs" />
     <Compile Include="SplashScreenState.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Assets\Fonts\Base.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Maps\TestMap.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -116,7 +121,7 @@
     <Content Include="Assets\Textures\arrowRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Textures\container.PNG">
+    <Content Include="Assets\Textures\mapSpriteSheet128px.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\pointer.PNG">

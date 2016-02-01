@@ -23,11 +23,11 @@ namespace Orbs
             title.Position = new SFML.System.Vector2f(Program.Window.Size.X / 2 - title.GetLocalBounds().Width / 2, 100);
 
             List<Tuple<String,Action>> items = new List<Tuple<String, Action>>();
-            items.Add(new Tuple<string, Action>("Play",     () => { }                                           ));
-            items.Add(new Tuple<string, Action>("Options",  () => { }                                           ));
-            items.Add(new Tuple<string, Action>("Help",     () => { }                                           ));
-            items.Add(new Tuple<string, Action>("Credits",  () => { Program.StateManager.LeaveCurrentState(); } ));
-            items.Add(new Tuple<string, Action>("Exit",     () => { Program.Window.Close(); }                   ));
+            items.Add(new Tuple<string, Action>("Play",     () => { Program.StateManager.EnterState(new ExploringState()); }    ));
+            items.Add(new Tuple<string, Action>("Options",  () => { }                                                           ));
+            items.Add(new Tuple<string, Action>("Help",     () => { }                                                           ));
+            items.Add(new Tuple<string, Action>("Credits",  () => { Program.StateManager.LeaveCurrentState(); }                 ));
+            items.Add(new Tuple<string, Action>("Exit",     () => { Program.Window.Close(); }                                   ));
 
             menu = new Menu(items, menuFont, 60, new Vector2f(Program.Window.Size.X / 2, 350),700);
         }
