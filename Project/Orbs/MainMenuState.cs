@@ -1,18 +1,15 @@
 ﻿using SFML.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Window;
 using SFML.System;
 
 namespace Orbs
 {
-    class MainMenuState : IState
+    public class MainMenuState : IState
     {
-        private Menu menu;
-        private Text title;
+        private readonly Menu menu;
+        private readonly Text title;
 
         public MainMenuState()
         {
@@ -46,14 +43,14 @@ namespace Orbs
         {
             switch(i.Code)
             {
-                case (Keyboard.Key.Up):
+                case Keyboard.Key.Up:
                     menu?.MoveUp();
                     break;
-                case (Keyboard.Key.Down):
+                case Keyboard.Key.Down:
                     menu?.MoveDown();
                     break;
-                case (Keyboard.Key.Space):
-                case (Keyboard.Key.Return):
+                case Keyboard.Key.Space:
+                case Keyboard.Key.Return:
                     menu?.SelectItem();
                     break;
             }

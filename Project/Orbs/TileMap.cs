@@ -1,11 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orbs
 {
@@ -14,10 +11,7 @@ namespace Orbs
         private Texture tileSet;
         private uint tilesPerTileSetLine = 20;
 
-        private VertexArray sanity = new VertexArray(PrimitiveType.Quads, 4);
-
         private VertexArray vertexArray = new VertexArray(PrimitiveType.Quads);
-        private RenderStates vertexState = new RenderStates();
 
         private uint worldWidth;  //in tiles
         private uint worldHeight; //in tiles
@@ -61,33 +55,7 @@ namespace Orbs
             {
                 for (uint j = 0; j < worldWidth; j++)
                 {
-                    // !#
-                    // ##
-                    vertexArray.Append(new Vertex(
-                                            new Vector2f(j * worldTileSize, i * worldTileSize),
-                                            //new Vector2f(0,0)));
-                                            new Vector2f(tiles[i, j] % tilesPerTileSetLine * textureTileSize, (tiles[i, j] / tilesPerTileSetLine) * textureTileSize)));
-
-                    // #!
-                    // ##
-                    vertexArray.Append(new Vertex(
-                                            new Vector2f((j + 1) * worldTileSize, i * worldTileSize),
-                                            //new Vector2f(textureTileSize, 0)));
-                                            new Vector2f((tiles[i, j] % tilesPerTileSetLine + 1) * textureTileSize, (tiles[i, j] / tilesPerTileSetLine) * textureTileSize)));
-
-                    // ##
-                    // #!
-                    vertexArray.Append(new Vertex(
-                                            new Vector2f((j + 1) * worldTileSize, (i + 1) * worldTileSize),
-                                            //new Vector2f(textureTileSize, textureTileSize)));
-                                            new Vector2f((tiles[i, j] % tilesPerTileSetLine + 1) * textureTileSize, ((tiles[i, j] / tilesPerTileSetLine) + 1) * textureTileSize)));
-
-                    // ##
-                    // !#
-                    vertexArray.Append(new Vertex(
-                                            new Vector2f(j * worldTileSize, (i + 1) * worldTileSize),
-                                            //new Vector2f(0, textureTileSize)));
-                                            new Vector2f(tiles[i, j] % tilesPerTileSetLine * textureTileSize, ((tiles[i, j] / tilesPerTileSetLine) + 1) * textureTileSize)));
+                    BindVerticesToTexture(j, i, tiles[i, j]);
                 }
             }
                         
@@ -98,6 +66,33 @@ namespace Orbs
         {
             states.Texture = tileSet;
             target.Draw(vertexArray,states);
+        }
+
+        private void BindVerticesToTexture(uint x, uint y, int tile)
+        {
+            // !#
+            // ##
+            vertexArray.Append(new Vertex(
+                                    new Vector2f(x * worldTileSize, y * worldTileSize),
+                                    new Vector2f(tile % tilesPerTileSetLine * textureTileSize, (tile / tilesPerTileSetLine) * textureTileSize)));
+
+            // #!
+            // ##
+            vertexArray.Append(new Vertex(
+                                    new Vector2f((x + 1) * worldTileSize, y * worldTileSize),
+                                    new Vector2f((tile % tilesPerTileSetLine + 1) * textureTileSize, (tile / tilesPerTileSetLine) * textureTileSize)));
+
+            // ##
+            // #!
+            vertexArray.Append(new Vertex(
+                                    new Vector2f((x + 1) * worldTileSize, (y + 1) * worldTileSize),
+                                    new Vector2f((tile % tilesPerTileSetLine + 1) * textureTileSize, ((tile / tilesPerTileSetLine) + 1) * textureTileSize)));
+
+            // ##
+            // !#
+            vertexArray.Append(new Vertex(
+                                    new Vector2f(x * worldTileSize, (y + 1) * worldTileSize),
+                                    new Vector2f(tile % tilesPerTileSetLine * textureTileSize, ((tile / tilesPerTileSetLine) + 1) * textureTileSize)));
         }
     }
 }

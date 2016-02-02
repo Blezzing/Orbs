@@ -1,10 +1,6 @@
 ﻿using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orbs
 {
@@ -15,6 +11,7 @@ namespace Orbs
         private static AssetManager assetManager;
         private static StateManager stateManager;
         private static Color clearColor = Color.Black;
+        private static Clock clock = new Clock();
         #endregion
 
         #region Properties
@@ -84,6 +81,12 @@ namespace Orbs
 
         private static void GameLoop()
         {
+            Font fpsFont = new Font("Assets/Fonts/Base.ttf");
+            Text fps = new Text("fps", fpsFont);
+            int count = 0;
+            clock.Restart();
+            View backup;
+
             //Terminate when window gets closed
             while (window.IsOpen)
             {
@@ -98,6 +101,14 @@ namespace Orbs
 
                 //Draw frame
                 stateManager.CurrentState?.Render();
+                
+                if (++count > 100)
+                {
+                    fps.DisplayedString = (1000000 / (clock.ElapsedTime.AsMicroseconds()/100)).ToString();
+                    count = 0;
+                    clock.Restart();
+                }
+                window.Draw(fps);
 
                 //Swap frame   
                 window.Display();
