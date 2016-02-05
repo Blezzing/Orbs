@@ -68,7 +68,7 @@ namespace Orbs
         private static void InitializeWindow()
         {
             //Construct
-            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Fullscreen);
+            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Default);
 
             //Set parameters
             window.SetVisible(true);
@@ -85,7 +85,6 @@ namespace Orbs
             Text fps = new Text("fps", fpsFont);
             int count = 0;
             clock.Restart();
-            View backup;
 
             //Terminate when window gets closed
             while (window.IsOpen)
