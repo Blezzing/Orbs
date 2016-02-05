@@ -93,15 +93,18 @@ namespace Orbs
             //set current texture to tileset
             states.Texture = tileSet;
 
-            //Call draw for each tile in drawing range
-            for (int x = drawingPoint.X - tileDrawRangeWidth; x < drawingPoint.X + tileDrawRangeWidth && x < worldWidth; x++)
+            //Loop variable preparation to perform fewer operations while iterating
+            int xLow    = drawingPoint.X - tileDrawRangeWidth > 0                   ? drawingPoint.X - tileDrawRangeWidth   : 0;
+            int xHigh   = drawingPoint.X + tileDrawRangeWidth > (int)worldWidth     ? (int)worldWidth                       : drawingPoint.X + tileDrawRangeWidth;
+            int yLow    = drawingPoint.Y - tileDrawRangeHeight > 0                  ? drawingPoint.Y - tileDrawRangeHeight  : 0;
+            int yHigh   = drawingPoint.Y + tileDrawRangeHeight > (int)worldHeight   ? (int)worldHeight                      : drawingPoint.Y + tileDrawRangeHeight;
+            
+            //Draw relevant tiles
+            for (int x = xLow;  x < xHigh; x++)
             {
-                for (int y = drawingPoint.Y - tileDrawRangeHeight; y < drawingPoint.Y + tileDrawRangeHeight && y < worldHeight; y++)
+                for (int y = yLow; y < yHigh; y++)
                 {
-                    if (x >= 0 && y >= 0)
-                    {
-                        target.Draw(tiles[x, y], states);
-                    }
+                    target.Draw(tiles[x, y], states);
                 }
             }
         }
