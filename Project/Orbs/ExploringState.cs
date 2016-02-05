@@ -13,16 +13,13 @@ namespace Orbs
         private View exploringView;
         private View defaultView;
 
-        private Clock time;
-
         public ExploringState()
         {
             //pretty loading here
             map = new TileMap();
-            player = new Character();
+            player = new Character(map);
             exploringView = new View(Program.Window.GetView());
             defaultView = Program.Window.DefaultView;
-            time = new Clock();
         }
 
         public void HandleKeyPressed(KeyEventArgs i)
@@ -38,19 +35,19 @@ namespace Orbs
             }
         }
 
+        public void Update()
+        {
+            player.Update();
+            exploringView.Center = player.DrawPosition;
+            map.SetDrawingPoint(player.Position);
+        }
+
         public void Render()
         {
             Program.Window.SetView(exploringView);
             Program.Window.Draw(map);
             Program.Window.Draw(player);
             Program.Window.SetView(defaultView);
-        }
-
-        public void Update()
-        {
-            player.Update(time.ElapsedTime);
-            exploringView.Center = player.Position;
-            time.Restart();
         }
     }
 }

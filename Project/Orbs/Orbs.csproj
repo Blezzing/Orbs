@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="AssetManager.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="ExploringState.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="LibraryExtensions.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="MainMenuState.cs" />
     <Compile Include="SplashScreenState.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="Tile.cs" />
     <Compile Include="TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
