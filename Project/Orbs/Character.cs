@@ -141,11 +141,11 @@ namespace Orbs
             {
                 return map.Tiles[Position.X, Position.Y - 1].isCollidable;
             }
-            else if (facingDirection == Direction.Right && Position.X < map.WorldWidth)
+            else if (facingDirection == Direction.Right && Position.X < map.WorldWidth - 1)
             {
                 return map.Tiles[Position.X + 1, Position.Y].isCollidable;
             }
-            else if (facingDirection == Direction.Down && Position.Y < map.WorldHeight)
+            else if (facingDirection == Direction.Down && Position.Y < map.WorldHeight - 1)
             {
                 return map.Tiles[Position.X, Position.Y + 1].isCollidable;
             }
