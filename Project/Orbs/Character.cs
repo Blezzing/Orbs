@@ -132,26 +132,22 @@ namespace Orbs
 
         private bool IsCollisionInFacingDirection()
         {
-            try 
+            if (facingDirection == Direction.Up && Position.Y >= 1)
             {
-                switch (facingDirection)
-                {
-                    case (Direction.Up):
-                        return map.Tiles[Position.X, Position.Y - 1].isCollidable;
-                    case (Direction.Right):
-                        return map.Tiles[Position.X + 1, Position.Y].isCollidable;
-                    case (Direction.Down):
-                        return map.Tiles[Position.X, Position.Y + 1].isCollidable;
-                    case (Direction.Left):
-                        return map.Tiles[Position.X - 1, Position.Y].isCollidable;
-                }
+                return map.Tiles[Position.X, Position.Y - 1].isCollidable;
             }
-            catch (IndexOutOfRangeException)
+            else if (facingDirection == Direction.Right && Position.X < map.WorldWidth)
             {
-                return true;
+                return map.Tiles[Position.X + 1, Position.Y].isCollidable;
             }
-
-            //Should never be reached
+            else if (facingDirection == Direction.Down && Position.Y < map.WorldHeight)
+            {
+                return map.Tiles[Position.X, Position.Y + 1].isCollidable;
+            }
+            else if (facingDirection == Direction.Left && Position.X >= 1)
+            {
+                return map.Tiles[Position.X - 1, Position.Y].isCollidable;
+            }
             return true;
         }
 
