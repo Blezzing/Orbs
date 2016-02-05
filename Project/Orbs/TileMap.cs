@@ -16,14 +16,15 @@ namespace Orbs
         private uint worldWidth;  //in tiles
         private uint worldHeight; //in tiles
 
-        private float textureTileSize = 128; //Tile size on sheet
-        private float worldTileSize = 64;   //Tile size on screen
+        private float textureTileSize = 64; //Tile size on sheet
+        private float worldTileSize = 32;   //Tile size on screen
 
         private int[,] tiles;
+        private VertexArray[,] chunks;
 
         //Should not be hardcoded!
         private string mapFile = "Assets/Maps/TestMap.csv";
-        private string tileSheetFile = "Assets/Textures/mapSpriteSheet128px.png";
+        private string tileSheetFile = "Assets/Textures/mapSpriteSheet64px.png";
 
         public TileMap()
         {
@@ -62,6 +63,11 @@ namespace Orbs
             Console.WriteLine("yay");
         }
         
+        public void Update(Vector2f viewPosition)
+        {
+
+        }
+
         public void Draw(RenderTarget target, RenderStates states)
         {
             states.Texture = tileSet;

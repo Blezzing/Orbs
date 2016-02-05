@@ -114,6 +114,11 @@ namespace Orbs
                 window.Display();
             }
         }
+
+        private static void FpsRenderer()
+        {
+
+        }
         #endregion
     }
 }

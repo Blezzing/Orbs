@@ -1,21 +1,28 @@
 ﻿using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
+using System;
 
 namespace Orbs
 {
     public class ExploringState : IState
     {
         private TileMap map;
+        private Character player;
+
         private View exploringView;
         private View defaultView;
+
+        private Clock time;
 
         public ExploringState()
         {
             //pretty loading here
             map = new TileMap();
+            player = new Character();
             exploringView = new View(Program.Window.GetView());
             defaultView = Program.Window.DefaultView;
+            time = new Clock();
         }
 
         public void HandleKeyPressed(KeyEventArgs i)
@@ -26,20 +33,7 @@ namespace Orbs
                     Program.Window.SetView(Program.Window.DefaultView);
                     Program.StateManager.LeaveCurrentState();
                     break;
-                case Keyboard.Key.Right:
-                    exploringView.Move(new Vector2f(4, 0));
-                    break;
-                case Keyboard.Key.Left:
-                    exploringView.Move(new Vector2f(-4, 0));
-                    break;
-                case Keyboard.Key.Up:
-                    exploringView.Move(new Vector2f(0, -4));
-                    break;
-                case Keyboard.Key.Down:
-                    exploringView.Move(new Vector2f(0, 4));
-                    break;
                 default:
-                    //do nothing
                     break;
             }
         }
@@ -48,11 +42,15 @@ namespace Orbs
         {
             Program.Window.SetView(exploringView);
             Program.Window.Draw(map);
+            Program.Window.Draw(player);
             Program.Window.SetView(defaultView);
         }
 
         public void Update()
         {
+            player.Update(time.ElapsedTime);
+            exploringView.Center = player.Position;
+            time.Restart();
         }
     }
 }
