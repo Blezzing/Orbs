@@ -8,8 +8,8 @@ namespace Orbs
     {
         private static int[] collidables = { 10, 11, 12, 30, 31, 32, 50, 51, 52 };
 
-        public static float TextureSize = 128; //tile size on sheet
-        public static float WorldSize = 128;   //tile size on screen
+        public static float TextureSize = 128; //Tile size on sheet
+        public static float WorldSize = 128;   //Tile size on screen
         private static uint tilesPerTileSetLine = 20;
 
         private int iD;

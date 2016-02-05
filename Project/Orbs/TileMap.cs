@@ -10,8 +10,8 @@ namespace Orbs
     {
         private Texture tileSet;
 
-        private uint worldWidth;  //in tiles
-        private uint worldHeight; //in tiles
+        private uint worldWidth;  //In tiles
+        private uint worldHeight; //In tiles
 
         private static int tileDrawRangeWidth = 32;
         private static int tileDrawRangeHeight = 19;
@@ -57,20 +57,20 @@ namespace Orbs
 
         private void LoadTileSheet()
         {
-            //load texture for use
+            //Load texture for use
             tileSet = new Texture(tileSheetFile);
         }
 
         private void LoadTileMap()
         {
-            //load all lines
+            //Load all lines
             string[] lines = File.ReadAllLines(mapFile);
 
-            //define world dimensions
+            //Define world dimensions
             worldHeight = (uint)lines.Count();
             worldWidth = (uint)lines[0].Split(',').ToArray().Count();
 
-            //populate tiles
+            //Populate tiles
             tiles = new Tile[worldWidth, worldWidth];
             for (int i = 0; i < worldHeight; i++)
             {
@@ -90,7 +90,7 @@ namespace Orbs
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            //set current texture to tileset
+            //Set current texture to tileset
             states.Texture = tileSet;
 
             //Loop variable preparation to perform fewer operations while iterating

@@ -7,16 +7,16 @@ namespace Orbs
 {
     public class Character : Drawable
     {
-        private bool isMoving = false;                      //flag for knowing if it should take input
-        private float speed = 2f;                           //tiles/sec
-        private Direction facingDirection = Direction.Down; //if moving, what direction? and if not, where are the character facing?
-        private float alreadyMoved;                         //how far have the character already moved? unit is pixels, checked against tileworldsize                        
-        private Clock updateTimer;                          //timer to keep track of update deltatime
-        private Sprite sprite;                              //sprite of the character
+        private bool isMoving = false;                      //Flag for knowing if it should take input
+        private float speed = 2f;                           //Tiles/sec
+        private Direction facingDirection = Direction.Down; //If moving, what direction? and if not, where are the character facing?
+        private float alreadyMoved;                         //How far have the character already moved? unit is pixels, checked against tileworldsize                        
+        private Clock updateTimer;                          //Timer to keep track of update deltatime
+        private Sprite sprite;                              //Sprite of the character
 
-        private TileMap map;                                //what map is the character currently on
-        public Vector2i Position = new Vector2i(10,10);     //where on the tilemap is the character currently? updated on end of movement from tile to tile
-        public Vector2f DrawPosition                        //where is the sprite of the character for camera following
+        private TileMap map;                                //What map is the character currently on
+        public Vector2i Position = new Vector2i(10,10);     //Where on the tilemap is the character currently? updated on end of movement from tile to tile
+        public Vector2f DrawPosition                        //Where is the sprite of the character for camera following
         {
             get
             {
@@ -32,7 +32,7 @@ namespace Orbs
             sprite.Origin = sprite.Texture.Center();
             sprite.Position = new Vector2f(Position.X, Position.Y) * Tile.WorldSize + new Vector2f(Tile.WorldSize, Tile.WorldSize) / 2;
 
-            //bind map
+            //Bind map
             this.map = map;
 
             //Start the updateTimer
@@ -57,12 +57,10 @@ namespace Orbs
                     return;
                 }
 
-                //distance according to speed(tiles/sec) and time.
+                //Distance according to speed(tiles/sec) and time.
                 float distance = speed * (Tile.WorldSize * updateTimer.ElapsedTime.AsMicroseconds()) / 1000000;
 
-                //move player sprite
-                alreadyMoved += distance;
-
+                //Apply movement on sprite
                 switch (facingDirection)
                 {
                     case (Direction.Up):
@@ -78,7 +76,9 @@ namespace Orbs
                         sprite.Position += new Vector2f(-distance, 0);
                         break;
                 }
-                //there? stop
+
+                //Moved an entire tile yet?
+                alreadyMoved += distance;
                 if (alreadyMoved >= Tile.WorldSize)
                 {
                     switch (facingDirection)
@@ -97,10 +97,10 @@ namespace Orbs
                             break;
                     }
 
-                    //hard set to avoid drifting
+                    //Hard set to avoid drifting
                     sprite.Position = new Vector2f(Position.X, Position.Y) * Tile.WorldSize + new Vector2f(Tile.WorldSize, Tile.WorldSize)/2;
 
-                    //prepare values for next movement
+                    //Prepare values for next movement
                     alreadyMoved = 0;
                     isMoving = false;
                 }
@@ -132,6 +132,12 @@ namespace Orbs
                     isMoving = true;
                 }
             }
+
+            //Qol while debugging
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+                speed = 20;
+            else
+                speed = 2;
         }
 
         private bool IsCollisionInFacingDirection()

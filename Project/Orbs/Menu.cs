@@ -13,25 +13,25 @@ namespace Orbs
 
         public Menu(List<Tuple<String,Action>> items, Font font, uint characterSize ,Vector2f topLeft, float height)
         {
-            //get items
+            //Get items
             foreach (Tuple<String, Action> tuple in items)
             {
                 menuItems.Add(new MenuItem(new Text(tuple.Item1, font, characterSize), tuple.Item2));
             }
 
-            //define positions
+            //Define positions
             for (int i = 0; i<menuItems.Count;i++)
             {
                 menuItems[i].Label.Position = new Vector2f(topLeft.X, topLeft.Y + (height / menuItems.Count) * i);
             }
 
-            //prepare pointer
+            //Prepare pointer
             uint pointerSize = menuItems[selectedItem].Label.CharacterSize;
             selectionPointer = new Sprite(new Texture("Assets/Textures/arrowRight.png") { Smooth=true });
             selectionPointer.Scale = new Vector2f(0.04f*pointerSize, 0.04f*pointerSize);
             selectionPointer.Color = Color.Red;
 
-            //preset first selection
+            //Preset first selection
             menuItems[selectedItem].Selected = true;
             UpdatePointerPosition();
         }

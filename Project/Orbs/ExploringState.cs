@@ -15,7 +15,7 @@ namespace Orbs
 
         public ExploringState()
         {
-            //pretty loading here
+            //Pretty loading here
             map = new TileMap();
             player = new Character(map);
             exploringView = new View(Program.Window.GetView());
