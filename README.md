@@ -1,4 +1,26 @@
 # Orbs
 
-A concept for a jrpg style game with usual buffs replaced by the concept of orbs that stack freely.
-Most/all skills generate or consume these orbs for interesting synergies.
+Tilebased jrpg/adventure game!
+
+Exploration in a gridbased world, and enter strategic turn based combat with a twist!
+
+# Current goals
+
+  - Swap from csv, to more fitting tmx files for map storage.
+
+  - Implement a resource manager.
+
+  - Fully implement adventuremode.
+
+# Farstretched goals
+In no particular order:
+
+  - Implement an interesting map.
+
+  - Implement saving/continue feature.
+
+  - Implement the combat system.
+
+  - Implement a story. (Just because..)
+
+  - Implement multiplayer combat.
