@@ -13,8 +13,7 @@ namespace Orbs
         private static uint tilesPerTileSetLine = 20;
 
         private int iD;
-        private int x;
-        private int y;
+        private Vector2i mapPosition;
         
         private VertexArray vertexArray = new VertexArray(PrimitiveType.Quads, 4);
         
@@ -33,43 +32,16 @@ namespace Orbs
                 BindTexture();
             }
         }
-        public int X
-        {
-            get
-            {
-                return x;
-            }
 
-            set
-            {
-                x = value;
-                BindTexture();
-            }
-        }
-        public int Y
-        {
-            get
-            {
-                return y;
-            }
-
-            set
-            {
-                y = value;
-                BindTexture();
-            }
-        }
-
-        public Tile(int ID, int x, int y) : this(ID, x, y, isCollidableByDefault(ID))
+        public Tile(int ID, Vector2i position) : this(ID, position, isCollidableByDefault(ID))
         {
         }
 
-        public Tile(int ID, int x, int y, bool isCollidable)
+        public Tile(int ID, Vector2i position, bool isCollidable)
         {
             this.ID = ID;
-            this.X = x;
-            this.Y = y;
             this.isCollidable = isCollidable;
+            this.mapPosition = position;
             this.BindTexture();
         }
 
@@ -88,25 +60,25 @@ namespace Orbs
             // !#
             // ##
             vertexArray.Append(new Vertex(
-                                    new Vector2f(X * WorldSize, Y * WorldSize),
+                                    new Vector2f(mapPosition.X * WorldSize, mapPosition.Y * WorldSize),
                                     new Vector2f(ID % tilesPerTileSetLine * TextureSize, (ID / tilesPerTileSetLine) * TextureSize)));
 
             // #!
             // ##
             vertexArray.Append(new Vertex(
-                                    new Vector2f((X + 1) * WorldSize, Y * WorldSize),
+                                    new Vector2f((mapPosition.X + 1) * WorldSize, mapPosition.Y * WorldSize),
                                     new Vector2f((ID % tilesPerTileSetLine + 1) * TextureSize, (ID / tilesPerTileSetLine) * TextureSize)));
 
             // ##
             // #!
             vertexArray.Append(new Vertex(
-                                    new Vector2f((X + 1) * WorldSize, (Y + 1) * WorldSize),
+                                    new Vector2f((mapPosition.X + 1) * WorldSize, (mapPosition.Y + 1) * WorldSize),
                                     new Vector2f((ID % tilesPerTileSetLine + 1) * TextureSize, ((ID / tilesPerTileSetLine) + 1) * TextureSize)));
 
             // ##
             // !#
             vertexArray.Append(new Vertex(
-                                    new Vector2f(X * WorldSize, (Y + 1) * WorldSize),
+                                    new Vector2f(mapPosition.X * WorldSize, (mapPosition.Y + 1) * WorldSize),
                                     new Vector2f(ID % tilesPerTileSetLine * TextureSize, ((ID / tilesPerTileSetLine) + 1) * TextureSize)));
         }
 

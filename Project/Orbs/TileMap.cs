@@ -9,7 +9,6 @@ namespace Orbs
     public class TileMap : Drawable
     {
         private Texture tileSet;
-        private VertexArray vertexArray = new VertexArray(PrimitiveType.Quads);
 
         private uint worldWidth;  //in tiles
         private uint worldHeight; //in tiles
@@ -79,7 +78,7 @@ namespace Orbs
 
                 for (int j = 0; j < worldWidth; j++)
                 {
-                    tiles[j,i] = new Tile(int.Parse(values[j]), j, i);
+                    tiles[j,i] = new Tile(int.Parse(values[j]), new Vector2i(j, i));
                 }
             }
         }
@@ -95,11 +94,11 @@ namespace Orbs
             states.Texture = tileSet;
 
             //Call draw for each tile in drawing range
-            for (int x = drawingPoint.X - tileDrawRangeWidth; x < drawingPoint.X + tileDrawRangeWidth; x++)
+            for (int x = drawingPoint.X - tileDrawRangeWidth; x < drawingPoint.X + tileDrawRangeWidth && x < worldWidth; x++)
             {
-                for (int y = drawingPoint.Y - tileDrawRangeHeight; y < drawingPoint.Y + tileDrawRangeHeight; y++)
+                for (int y = drawingPoint.Y - tileDrawRangeHeight; y < drawingPoint.Y + tileDrawRangeHeight && y < worldHeight; y++)
                 {
-                    if (x >= 0 && y >= 0 && x < worldWidth && y < worldHeight)
+                    if (x >= 0 && y >= 0)
                     {
                         target.Draw(tiles[x, y], states);
                     }

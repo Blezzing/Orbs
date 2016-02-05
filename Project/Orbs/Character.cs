@@ -16,7 +16,6 @@ namespace Orbs
 
         private TileMap map;                                //what map is the character currently on
         public Vector2i Position = new Vector2i(10,10);     //where on the tilemap is the character currently? updated on end of movement from tile to tile
-
         public Vector2f DrawPosition                        //where is the sprite of the character for camera following
         {
             get
@@ -51,30 +50,32 @@ namespace Orbs
         {
             if (isMoving)
             {
+                //Check if there's an obstacle on the desired tile
                 if (IsCollisionInFacingDirection())
                 {
                     isMoving = false;
                     return;
                 }
 
-                float move = speed * (Tile.WorldSize * updateTimer.ElapsedTime.AsMicroseconds()) / 1000000;
+                //distance according to speed(tiles/sec) and time.
+                float distance = speed * (Tile.WorldSize * updateTimer.ElapsedTime.AsMicroseconds()) / 1000000;
 
                 //move player sprite
-                alreadyMoved += move;
+                alreadyMoved += distance;
 
                 switch (facingDirection)
                 {
                     case (Direction.Up):
-                        sprite.Position += new Vector2f(0, -move);
+                        sprite.Position += new Vector2f(0, -distance);
                         break;
                     case (Direction.Right):
-                        sprite.Position += new Vector2f(move, 0);
+                        sprite.Position += new Vector2f(distance, 0);
                         break;
                     case (Direction.Down):
-                        sprite.Position += new Vector2f(0, move);
+                        sprite.Position += new Vector2f(0, distance);
                         break;
                     case (Direction.Left):
-                        sprite.Position += new Vector2f(-move, 0);
+                        sprite.Position += new Vector2f(-distance, 0);
                         break;
                 }
                 //there? stop
@@ -96,7 +97,10 @@ namespace Orbs
                             break;
                     }
 
+                    //hard set to avoid drifting
                     sprite.Position = new Vector2f(Position.X, Position.Y) * Tile.WorldSize + new Vector2f(Tile.WorldSize, Tile.WorldSize)/2;
+
+                    //prepare values for next movement
                     alreadyMoved = 0;
                     isMoving = false;
                 }
@@ -132,6 +136,7 @@ namespace Orbs
 
         private bool IsCollisionInFacingDirection()
         {
+            //Check for collidable tiles and map borders;
             if (facingDirection == Direction.Up && Position.Y >= 1)
             {
                 return map.Tiles[Position.X, Position.Y - 1].isCollidable;
