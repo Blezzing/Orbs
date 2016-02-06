@@ -1,6 +1,7 @@
 ﻿using System;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.System;
 
 namespace Orbs
 {
@@ -13,18 +14,15 @@ namespace Orbs
         public SplashScreenState()
         {
             //Create the orb
-            Texture splashTexture = new Texture("Assets/Textures/splashOrb.png");
-            splashTexture.Smooth = true;
-            splashSprite = new Sprite(splashTexture);
+            splashSprite = new Sprite(new Texture("Assets/Textures/splashOrb.png") { Smooth = true });
             splashSprite.Color = renderColor;
-            splashSprite.Origin = splashTexture.Center();
+            splashSprite.Origin = splashSprite.Texture.Center();
             splashSprite.Position = new SFML.System.Vector2f(Program.Window.Size.X / 2, (Program.Window.Size.Y / 5) * 3);
 
             //Create the title label
-            Font titleFont = new Font("Assets/Fonts/Base.ttf");
-            titleText = new Text("ORBS", titleFont, 140);
+            titleText = new Text("ORBS", new Font("Assets/Fonts/Base.ttf"), 140);
             titleText.Color = renderColor;
-            titleText.Position = new SFML.System.Vector2f(Program.Window.Size.X / 2 - titleText.GetLocalBounds().Width / 2, 100);
+            titleText.Position = new Vector2f(Program.Window.Size.X / 2 - titleText.GetLocalBounds().Width / 2, 100);
         }
 
         public void Update()

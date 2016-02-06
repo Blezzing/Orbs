@@ -21,7 +21,7 @@ namespace Orbs
 
             List<Tuple<String,Action>> items = new List<Tuple<String, Action>>();
             items.Add(new Tuple<string, Action>("Play",     () => { Program.StateManager.EnterState(new ExploringState()); }    ));
-            items.Add(new Tuple<string, Action>("Options",  () => { }                                                           ));
+            items.Add(new Tuple<string, Action>("Options",  () => { Program.IsFpsRendering = !Program.IsFpsRendering; }         ));
             items.Add(new Tuple<string, Action>("Help",     () => { }                                                           ));
             items.Add(new Tuple<string, Action>("Credits",  () => { Program.StateManager.LeaveCurrentState(); }                 ));
             items.Add(new Tuple<string, Action>("Exit",     () => { Program.Window.Close(); }                                   ));

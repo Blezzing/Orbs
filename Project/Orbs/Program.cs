@@ -7,11 +7,18 @@ namespace Orbs
     public static class Program
     {
         #region Fields
+        //Key components
         private static RenderWindow window;
         private static AssetManager assetManager;
         private static StateManager stateManager;
-        private static Color clearColor = Color.Black;
-        private static Clock clock = new Clock();
+
+        //Fps monitoring
+        private static Clock fpsClock = new Clock();
+        private static Text fpsLabel = new Text("fps", new Font("Assets/Fonts/Base.ttf"));
+        private static int fpsSamples = 0;
+
+        public static bool IsFpsRendering = false;
+        public static bool IsFullscreen = true;
         #endregion
 
         #region Properties
@@ -68,7 +75,7 @@ namespace Orbs
         private static void InitializeWindow()
         {
             //Construct
-            window = new RenderWindow(new VideoMode(1920,1080), "Orbs", Styles.Default);
+            window = new RenderWindow(new VideoMode(1920, 1080), "Orbs", IsFullscreen ? Styles.Fullscreen : Styles.Default);
 
             //Set parameters
             window.SetVisible(true);
@@ -81,11 +88,6 @@ namespace Orbs
 
         private static void GameLoop()
         {
-            Font fpsFont = new Font("Assets/Fonts/Base.ttf");
-            Text fps = new Text("fps", fpsFont);
-            int count = 0;
-            clock.Restart();
-
             //Terminate when window gets closed
             while (window.IsOpen)
             {
@@ -96,18 +98,13 @@ namespace Orbs
                 stateManager.CurrentState?.Update();
 
                 //Prepare frame
-                window.Clear(clearColor);
+                window.Clear(Color.Black);
 
                 //Draw frame
                 stateManager.CurrentState?.Render();
-                
-                if (++count > 100)
-                {
-                    fps.DisplayedString = (1000000 / (clock.ElapsedTime.AsMicroseconds()/100)).ToString();
-                    count = 0;
-                    clock.Restart();
-                }
-                window.Draw(fps);
+
+                //Fps-counter
+                FpsRenderer();
 
                 //Swap frame   
                 window.Display();
@@ -116,7 +113,18 @@ namespace Orbs
 
         private static void FpsRenderer()
         {
+            if (!IsFpsRendering)
+            {
+                return;
+            }
 
+            if (++fpsSamples > 100)
+            {
+                fpsLabel.DisplayedString = (1000000 / (fpsClock.ElapsedTime.AsMicroseconds() / fpsSamples ) ).ToString();
+                fpsSamples = 0;
+                fpsClock.Restart();
+            }
+            window.Draw(fpsLabel);
         }
         #endregion
     }
