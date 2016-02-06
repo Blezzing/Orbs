@@ -19,6 +19,7 @@ namespace Orbs
 
         //Flags
         public static bool IsFpsRendering = false;
+        public static bool IsVSyncEnabled = true;
         public static bool IsFullscreen = true;
         #endregion
 
@@ -81,7 +82,7 @@ namespace Orbs
             //Set parameters
             window.SetVisible(true);
             window.SetMouseCursorVisible(false);
-            window.RequestFocus();
+            window.SetVerticalSyncEnabled(IsVSyncEnabled);
 
             //Bind events
             window.Closed += (sender, i) => window.Close();
