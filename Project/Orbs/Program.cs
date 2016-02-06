@@ -17,6 +17,7 @@ namespace Orbs
         private static Text fpsLabel = new Text("fps", new Font("Assets/Fonts/Base.ttf"));
         private static int fpsSamples = 0;
 
+        //Flags
         public static bool IsFpsRendering = false;
         public static bool IsFullscreen = true;
         #endregion
@@ -80,10 +81,12 @@ namespace Orbs
             //Set parameters
             window.SetVisible(true);
             window.SetMouseCursorVisible(false);
+            window.RequestFocus();
 
             //Bind events
             window.Closed += (sender, i) => window.Close();
             window.KeyPressed += (sender, i) => stateManager.CurrentState?.HandleKeyPressed(i);
+            window.KeyPressed += (sender, i) => { if (i.Code == Keyboard.Key.F11) { window.Close(); IsFullscreen = !IsFullscreen; InitializeWindow(); } };
         }
 
         private static void GameLoop()
@@ -113,18 +116,16 @@ namespace Orbs
 
         private static void FpsRenderer()
         {
-            if (!IsFpsRendering)
+            if (IsFpsRendering)
             {
-                return;
+                if (++fpsSamples > 100)
+                {
+                    fpsLabel.DisplayedString = (1000000 / (fpsClock.ElapsedTime.AsMicroseconds() / fpsSamples)).ToString();
+                    fpsSamples = 0;
+                    fpsClock.Restart();
+                }
+                window.Draw(fpsLabel);
             }
-
-            if (++fpsSamples > 100)
-            {
-                fpsLabel.DisplayedString = (1000000 / (fpsClock.ElapsedTime.AsMicroseconds() / fpsSamples ) ).ToString();
-                fpsSamples = 0;
-                fpsClock.Restart();
-            }
-            window.Draw(fpsLabel);
         }
         #endregion
     }
