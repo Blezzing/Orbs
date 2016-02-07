@@ -5,11 +5,11 @@ namespace Orbs
 {
     public class StateManager
     {
-        private Stack<IState> states = new Stack<IState>();
+        private Stack<State> states = new Stack<State>();
 
         public event EventHandler OutOfStates;
 
-        public IState CurrentState
+        public State CurrentState
         {
             get
             {
@@ -42,7 +42,7 @@ namespace Orbs
             }
         }
 
-        public void ReplaceState(IState newState)
+        public void ReplaceState(State newState)
         {
             if (states.Count > 0)
             {
@@ -52,7 +52,7 @@ namespace Orbs
             states.Push(newState);
         }
 
-        public void EnterState(IState newState)
+        public void EnterState(State newState)
         {
             states.Push(newState);
         }

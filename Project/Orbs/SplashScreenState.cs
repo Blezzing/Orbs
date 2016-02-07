@@ -5,7 +5,7 @@ using SFML.System;
 
 namespace Orbs
 {
-    class SplashScreenState : IState
+    class SplashScreenState : State
     {
         private Sprite splashSprite;
         private Text titleText;
@@ -25,17 +25,13 @@ namespace Orbs
             titleText.Position = new Vector2f(Program.Window.Size.X / 2 - titleText.GetLocalBounds().Width / 2, 100);
         }
 
-        public void Update()
-        {
-        }
-
-        public void Render()
+        public override void Render()
         {
             Program.Window.Draw(splashSprite);
             Program.Window.Draw(titleText);
         }
 
-        public void HandleKeyPressed(KeyEventArgs i)
+        public override void HandleKeyPressed(KeyEventArgs i)
         {
             //On any key - enter main menu
             Program.StateManager.EnterState(new MainMenuState());

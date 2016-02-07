@@ -5,7 +5,7 @@ using System;
 
 namespace Orbs
 {
-    public class ExploringState : IState
+    public class ExploringState : State
     {
         private TileMap map;
         private Character player;
@@ -22,7 +22,7 @@ namespace Orbs
             defaultView = Program.Window.DefaultView;
         }
 
-        public void HandleKeyPressed(KeyEventArgs i)
+        public override void HandleKeyPressed(KeyEventArgs i)
         {
             switch (i.Code)
             {
@@ -35,14 +35,14 @@ namespace Orbs
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             player.Update();
             exploringView.Center = player.DrawPosition;
             map.SetDrawingPoint(player.Position);
         }
 
-        public void Render()
+        public override void Render()
         {
             Program.Window.SetView(exploringView);
             Program.Window.Draw(map);

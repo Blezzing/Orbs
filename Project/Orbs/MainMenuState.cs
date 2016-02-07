@@ -6,7 +6,7 @@ using SFML.System;
 
 namespace Orbs
 {
-    public class MainMenuState : IState
+    public class MainMenuState : State
     {
         private readonly Menu menu;
         private readonly Text title;
@@ -29,17 +29,13 @@ namespace Orbs
             menu = new Menu(items, menuFont, 60, new Vector2f(Program.Window.Size.X / 2, 350),700);
         }
 
-        public void Update()
-        {
-        }
-
-        public void Render()
+        public override void Render()
         {
             Program.Window.Draw(title);
             Program.Window.Draw(menu);
         }
         
-        public void HandleKeyPressed(KeyEventArgs i)
+        public override void HandleKeyPressed(KeyEventArgs i)
         {
             switch(i.Code)
             {
