@@ -8,7 +8,7 @@ namespace Orbs
     public class ExploringState : State
     {
         private TileMap map;
-        private Character player;
+        private PlayerCharacter player;
 
         private View exploringView;
         private View defaultView;
@@ -17,7 +17,7 @@ namespace Orbs
         {
             //Pretty loading here
             map = new TileMap();
-            player = new Character(map);
+            player = new PlayerCharacter(map, new Vector2i(15,15));
             exploringView = new View(Program.Window.GetView());
             defaultView = Program.Window.DefaultView;
         }
@@ -38,7 +38,7 @@ namespace Orbs
         public override void Update()
         {
             player.Update();
-            exploringView.Center = player.DrawPosition;
+            exploringView.Center = player.SpritePosition;
             map.SetDrawingPoint(player.Position);
         }
 

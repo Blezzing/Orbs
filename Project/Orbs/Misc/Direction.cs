@@ -1,6 +1,6 @@
 ﻿namespace Orbs
 {
-    enum Direction
+    public enum Direction
     {
         Up,
         Right,

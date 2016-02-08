@@ -13,8 +13,8 @@ namespace Orbs
         private uint worldWidth;  //In tiles
         private uint worldHeight; //In tiles
 
-        private static int tileDrawRangeWidth = 32;
-        private static int tileDrawRangeHeight = 19;
+        private static int tileDrawRangeWidth = (int)(Program.Window.GetView().Size.Y / Tile.WorldSize)+2;
+        private static int tileDrawRangeHeight = (int)(int)(Program.Window.GetView().Size.X / Tile.WorldSize)+2;
 
         private Tile[,] tiles;
         private Vector2i drawingPoint = new Vector2i();

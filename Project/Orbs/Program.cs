@@ -19,7 +19,7 @@ namespace Orbs
 
         //Flags
         public static bool IsFpsRendering = false;
-        public static bool IsVSyncEnabled = true;
+        public static bool IsVSyncEnabled = false;
         public static bool IsFullscreen = true;
         #endregion
 

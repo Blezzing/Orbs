@@ -1,0 +1,6 @@
+﻿namespace Orbs
+{
+    class SettingManager
+    {
+    }
+}

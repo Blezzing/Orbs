@@ -1,5 +1,4 @@
-﻿using System;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace Orbs
@@ -14,10 +13,26 @@ namespace Orbs
 
         private int iD;
         private Vector2i mapPosition;
-        
+        private Character characterOnTile;
+                
         private VertexArray vertexArray = new VertexArray(PrimitiveType.Quads, 4);
         
-        public bool isCollidable;
+        private bool isCollidable;
+
+        public bool CanEnter
+        {
+            get
+            {
+                if (characterOnTile != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return !isCollidable;
+                }
+            }
+        }
 
         public int ID
         {
@@ -53,7 +68,6 @@ namespace Orbs
             return false;
         }
 
-
         private void BindTexture()
         {
             vertexArray.Clear();
@@ -80,6 +94,17 @@ namespace Orbs
             vertexArray.Append(new Vertex(
                                     new Vector2f(mapPosition.X * WorldSize, (mapPosition.Y + 1) * WorldSize),
                                     new Vector2f(ID % tilesPerTileSetLine * TextureSize, ((ID / tilesPerTileSetLine) + 1) * TextureSize)));
+        }
+
+        public void Enter(Character enteringCharacter)
+        {
+            characterOnTile = enteringCharacter;
+            enteringCharacter.Position = mapPosition;
+        }
+
+        public void Leave()
+        {
+            characterOnTile = null;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
